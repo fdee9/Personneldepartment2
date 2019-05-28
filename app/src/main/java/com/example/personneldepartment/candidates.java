@@ -25,6 +25,7 @@ public class candidates extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(candidates.this, addcand.class));
+
             }
         };
         addcand.setOnClickListener(btn_startbdListener);
