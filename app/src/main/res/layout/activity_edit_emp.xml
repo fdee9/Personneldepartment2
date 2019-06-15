@@ -62,7 +62,7 @@
             app:layout_constraintVertical_bias="0.853" />
 
         <EditText
-            android:id="@+id/name"
+            android:id="@+id/pTxt_surmane"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -165,7 +165,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:typeface="normal"
-            app:layout_constraintBottom_toTopOf="@+id/name"
+            app:layout_constraintBottom_toTopOf="@+id/pTxt_surmane"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

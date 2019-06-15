@@ -7,7 +7,7 @@
     tools:context=".employees">
 
     <ListView
-        android:id="@+id/emoloyees"
+        android:id="@+id/lV_employees"
         android:layout_width="334dp"
         android:layout_height="583dp"
         android:layout_marginStart="8dp"
@@ -31,7 +31,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/emoloyees"
+        app:layout_constraintBottom_toTopOf="@+id/lV_employees"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.283"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/addemp"
+        android:id="@+id/btn_addEmployee"
         android:layout_width="33dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.988" />
 
     <Button
-        android:id="@+id/timescand"
+        android:id="@+id/btn_posts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

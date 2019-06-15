@@ -11,14 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".edit_emp"></activity>
+        <activity android:name=".postsActivities.EditPostActivity"></activity>
+        <activity android:name=".postsActivities.AddPotsActivity" />
+        <activity android:name=".postsActivities.PostsActivity" />
+        <activity android:name=".edit_emp" />
         <activity android:name=".edit_cand" />
         <activity android:name=".addemp" />
         <activity android:name=".addcand" />
         <activity android:name=".candidates" />
         <activity android:name=".employees" />
         <activity
-            android:name=".general_menu"
+            android:name=".GeneralMenuActivity"
             android:label="@string/title_activity_general_menu"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".StartActivity">

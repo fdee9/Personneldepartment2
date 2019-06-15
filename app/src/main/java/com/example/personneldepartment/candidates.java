@@ -16,8 +16,8 @@ public class candidates extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_candidates);
-        candidates = findViewById(R.id.emoloyees);
-        addcand = findViewById(R.id.addcand);
+        candidates = findViewById(R.id.lV_employees);
+        addcand = findViewById(R.id.btn_addPost);
         String[] names = {"Кипелова Анна Викторовна", "Александров Александр Олегович"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, names);
         candidates.setAdapter(arrayAdapter);

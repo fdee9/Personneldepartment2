@@ -50,7 +50,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void postData(String url, JSONObject data) {
-        RequestQueue requstQueue = Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObj = new JsonObjectRequest(Request.Method.POST, url, data,
                 new Response.Listener<JSONObject>() {
@@ -58,7 +58,7 @@ public class StartActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         Message message = new Gson().fromJson(response.toString(), Message.class);
                         if (message.getSuccess() == 1) {
-                            Intent intent = new Intent(StartActivity.this, general_menu.class);
+                            Intent intent = new Intent(StartActivity.this, GeneralMenuActivity.class);
                             intent.putExtra("url", "http://" + edTxt_IP.getText() + "/api/");
                             startActivity(intent);
                         } else {
@@ -75,6 +75,6 @@ public class StartActivity extends AppCompatActivity {
                 }
         );
 
-        requstQueue.add(jsonObj);
+        requestQueue.add(jsonObj);
     }
 }

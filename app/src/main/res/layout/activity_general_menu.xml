@@ -5,10 +5,10 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".general_menu" >
+    tools:context=".GeneralMenuActivity" >
 
     <Button
-        android:id="@+id/inPersonal"
+        android:id="@+id/btn_inPersonal"
         android:layout_width="147dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -19,14 +19,14 @@
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/inCandidats"
+        app:layout_constraintEnd_toStartOf="@+id/btn_inCandidats"
         app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.656" />
 
     <Button
-        android:id="@+id/inCandidats"
+        android:id="@+id/btn_inCandidats"
         android:layout_width="147dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
