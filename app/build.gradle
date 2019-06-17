@@ -33,4 +33,5 @@ dependencies {
 
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'com.google.code.gson:gson:2.8.5'
+    compile group: 'joda-time', name: 'joda-time', version: '2.10.2'
 }
