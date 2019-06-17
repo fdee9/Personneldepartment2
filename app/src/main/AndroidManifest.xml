@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".postsActivities.EditPostActivity"></activity>
+        <activity android:name=".interviewActivities.EditInterviewActivity"></activity>
+        <activity android:name=".interviewActivities.AddInterviewActivity" />
+        <activity android:name=".interviewActivities.InterviewActivity" />
+        <activity android:name=".postsActivities.EditPostActivity" />
         <activity android:name=".postsActivities.AddPotsActivity" />
         <activity android:name=".postsActivities.PostsActivity" />
         <activity android:name=".peopleActivities.EditEmployeeActivity" />

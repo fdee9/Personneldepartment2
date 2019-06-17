@@ -27,6 +27,8 @@ import java.util.ArrayList;
 public class PostsActivity extends AppCompatActivity {
     private ListView lV_posts;
     private Button btn_addPost;
+    private Button btn_update;
+
     private String url;
     private Post[] posts;
 
@@ -37,9 +39,43 @@ public class PostsActivity extends AppCompatActivity {
 
         lV_posts = findViewById(R.id.lV_posts);
         btn_addPost = findViewById(R.id.btn_addPost);
+        btn_update = findViewById(R.id.btn_updatePosts);
 
         url = getIntent().getExtras().getString("url");
 
+        getPosts();
+
+        final View.OnClickListener btnAddPostListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostsActivity.this, AddPotsActivity.class);
+                intent.putExtra("url", getIntent().getExtras().getString("url"));
+                startActivity(intent);
+            }
+        };
+        btn_addPost.setOnClickListener(btnAddPostListener);
+
+        final View.OnClickListener btnUpdateListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPosts();
+            }
+        };
+        btn_update.setOnClickListener(btnUpdateListener);
+
+        final ListView.OnItemClickListener lVOnItemClickListener = new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
+                Intent intent = new Intent(PostsActivity.this, EditPostActivity.class);
+                intent.putExtra("url", url);
+                intent.putExtra("post", new Gson().toJson(posts[position]));
+                startActivity(intent);
+            }
+        };
+        lV_posts.setOnItemClickListener(lVOnItemClickListener);
+    }
+
+    private void getPosts() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url + "Posts", null,
                 new Response.Listener<JSONArray>() {
@@ -48,7 +84,7 @@ public class PostsActivity extends AppCompatActivity {
                         posts = new Gson().fromJson(response.toString(), Post[].class);
 
                         ArrayList<String> names = new ArrayList<>();
-                        for(Post post : posts){
+                        for (Post post : posts) {
                             names.add(post.getName());
                         }
 
@@ -65,26 +101,5 @@ public class PostsActivity extends AppCompatActivity {
                 }
         );
         requestQueue.add(jsonArrayRequest);
-
-        final View.OnClickListener btnAddPostListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PostsActivity.this, AddPotsActivity.class);
-                intent.putExtra("url", getIntent().getExtras().getString("url"));
-                startActivity(intent);
-            }
-        };
-        btn_addPost.setOnClickListener(btnAddPostListener);
-
-        final ListView.OnItemClickListener lVOnItemClickListener = new ListView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-                Intent intent = new Intent(PostsActivity.this, EditPostActivity.class);
-                intent.putExtra("url", url);
-                intent.putExtra("post", new Gson().toJson(posts[position]));
-                startActivity(intent);
-            }
-        };
-        lV_posts.setOnItemClickListener(lVOnItemClickListener);
     }
 }

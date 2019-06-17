@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.personneldepartment.R;
+import com.example.personneldepartment.interviewActivities.InterviewActivity;
 import com.example.personneldepartment.models.Person;
 import com.example.personneldepartment.postsActivities.PostsActivity;
 import com.google.gson.Gson;
@@ -44,19 +45,11 @@ public class PeopleActivity extends AppCompatActivity {
         txtV_title = findViewById(R.id.txtV_title_PeopleActivity);
         lV_employees = findViewById(R.id.lV_people);
         btn_addPerson = findViewById(R.id.btn_addPerson);
-        btn_posts = findViewById(R.id.btn_posts);
+        btn_posts = findViewById(R.id.btn_posts_interviews);
         btn_update = findViewById(R.id.btn_update);
 
         url = getIntent().getExtras().getString("url");
         is_employee = (Boolean) getIntent().getExtras().get("is_employee");
-
-        if(is_employee) {
-            txtV_title.setText("Сотрудники предприятия");
-            getPeople(url + "People/Employees");
-        }else {
-            txtV_title.setText("Кандидаты на открытые вакансии");
-            getPeople(url + "People/Candidates");
-        }
 
         final View.OnClickListener btnAddPersonListener = new View.OnClickListener() {
             @Override
@@ -71,6 +64,14 @@ public class PeopleActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PeopleActivity.this, PostsActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        };
+        final View.OnClickListener btnInterviwesListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PeopleActivity.this, InterviewActivity.class);
                 intent.putExtra("url", url);
                 startActivity(intent);
             }
@@ -99,8 +100,20 @@ public class PeopleActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         };
+
+        if(is_employee) {
+            txtV_title.setText("Сотрудники предприятия");
+            btn_posts.setText("Должности");
+            btn_posts.setOnClickListener(btnPostsListener);
+            getPeople(url + "People/Employees");
+        }else {
+            txtV_title.setText("Кандидаты на открытые вакансии");
+            btn_posts.setText("Собеседования");
+            btn_posts.setOnClickListener(btnInterviwesListener);
+            getPeople(url + "People/Candidates");
+        }
+
         btn_addPerson.setOnClickListener(btnAddPersonListener);
-        btn_posts.setOnClickListener(btnPostsListener);
         btn_update.setOnClickListener(btnUpdateListener);
         lV_employees.setOnItemClickListener(lVOnItemClickListener);
     }

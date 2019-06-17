@@ -146,6 +146,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
                         try {
                             spr_posts.setSelection(findPostById(person.getId_position()) + 1);
                         } catch (Exception e) {
+                            Toast.makeText(EditEmployeeActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             e.printStackTrace();
                         }
                     }
