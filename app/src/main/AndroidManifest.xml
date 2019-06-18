@@ -11,20 +11,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".interviewActivities.EditInterviewActivity"></activity>
-        <activity android:name=".interviewActivities.AddInterviewActivity" />
-        <activity android:name=".interviewActivities.InterviewActivity" />
-        <activity android:name=".postsActivities.EditPostActivity" />
-        <activity android:name=".postsActivities.AddPotsActivity" />
-        <activity android:name=".postsActivities.PostsActivity" />
-        <activity android:name=".peopleActivities.EditEmployeeActivity" />
-        <activity android:name=".peopleActivities.EditCandidateActivity" />
-        <activity android:name=".peopleActivities.AddPersonActivity" />
-        <activity android:name=".peopleActivities.PeopleActivity" />
+        <activity
+            android:name=".interviewActivities.EditInterviewActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".interviewActivities.AddInterviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".interviewActivities.InterviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".postsActivities.EditPostActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".postsActivities.AddPotsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".postsActivities.PostsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".peopleActivities.EditEmployeeActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".peopleActivities.EditCandidateActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".peopleActivities.AddPersonActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".peopleActivities.PeopleActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GeneralMenuActivity"
             android:label="@string/title_activity_general_menu"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
