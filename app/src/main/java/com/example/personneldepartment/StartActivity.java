@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -69,7 +70,15 @@ public class StartActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(StartActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(StartActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(StartActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }

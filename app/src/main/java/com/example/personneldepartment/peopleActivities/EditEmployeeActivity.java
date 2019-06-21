@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -44,7 +45,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
     private EditText edTxt_education;
     private EditText edTxt_experience;
     private Spinner spr_posts;
-    private Button btn_addEmployye;
+    private Button btn_addEmployee;
     private Button btn_deleteEmployee;
 
     private String url;
@@ -69,7 +70,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
         edTxt_education = findViewById(R.id.edTxt_education_EditEmployee);
         edTxt_experience = findViewById(R.id.edTxt_experience_EditEmployee);
         spr_posts = findViewById(R.id.spr_posts_EditEmployee);
-        btn_addEmployye = findViewById(R.id.btn_saveEmployee);
+        btn_addEmployee = findViewById(R.id.btn_saveEmployee);
         btn_deleteEmployee = findViewById(R.id.btn_deleteEmployee);
 
         url = getIntent().getExtras().getString("url");
@@ -111,7 +112,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 editEmployee(person.getId());
             }
         };
-        btn_addEmployye.setOnClickListener(btnSavePostListener);
+        btn_addEmployee.setOnClickListener(btnSavePostListener);
 
         final View.OnClickListener btnDeletePostListener = new View.OnClickListener() {
             @Override
@@ -154,7 +155,15 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditEmployeeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditEmployeeActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditEmployeeActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -220,7 +229,27 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditEmployeeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.networkResponse != null) {
+                            if((error.networkResponse.statusCode == 400)) {
+                                Toast.makeText(EditEmployeeActivity.this,
+                                        "Есть ссылки на данного человека",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditEmployeeActivity.this,
+                                        "ERROR " + error.networkResponse.statusCode,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            if (error.getClass() == TimeoutError.class){
+                                Toast.makeText(EditEmployeeActivity.this,
+                                        "Нет соединения с сервером",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditEmployeeActivity.this,
+                                        error.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -283,7 +312,15 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditEmployeeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditEmployeeActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditEmployeeActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }

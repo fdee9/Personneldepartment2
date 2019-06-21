@@ -1,8 +1,8 @@
 package com.example.personneldepartment.peopleActivities;
 
 import android.app.DatePickerDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
@@ -51,9 +52,9 @@ public class EditCandidateActivity extends AppCompatActivity {
     private String url;
     private Person person;
     private Post[] posts;
-    private Boolean is_employee = true;
+    private Boolean is_employee = false;
     private int spr_selectedItemId;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +103,7 @@ public class EditCandidateActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 spr_selectedItemId = position;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -126,16 +128,16 @@ public class EditCandidateActivity extends AppCompatActivity {
         final View.OnClickListener btnToEmployeeListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                camdidateToEmployee(person.getId());
+                candidateToEmployee(person.getId());
             }
         };
         btn_toEmployee.setOnClickListener(btnToEmployeeListener);
     }
 
-    private void camdidateToEmployee(int id){
+    private void candidateToEmployee(int id) {
         short mode = (short) 1;
         Integer idPost;
-        if(spr_selectedItemId == 0){
+        if (spr_selectedItemId == 0) {
             idPost = null;
         } else {
             idPost = new Integer(posts[spr_selectedItemId - 1].getId());
@@ -187,7 +189,15 @@ public class EditCandidateActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditCandidateActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditCandidateActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditCandidateActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -227,7 +237,15 @@ public class EditCandidateActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditCandidateActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditCandidateActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditCandidateActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -257,13 +275,13 @@ public class EditCandidateActivity extends AppCompatActivity {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         String monthString;
-                        if(monthOfYear < 9){
+                        if (monthOfYear < 9) {
                             monthString = "0" + ++monthOfYear;
                         } else {
                             monthString = "" + ++monthOfYear;
                         }
                         String dayString;
-                        if(dayOfMonth < 10){
+                        if (dayOfMonth < 10) {
                             dayString = "0" + dayOfMonth;
                         } else {
                             dayString = "" + dayOfMonth;
@@ -293,7 +311,27 @@ public class EditCandidateActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditCandidateActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.networkResponse != null) {
+                            if((error.networkResponse.statusCode == 400)) {
+                                Toast.makeText(EditCandidateActivity.this,
+                                        "Есть ссылки на данного человека",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditCandidateActivity.this,
+                                        "ERROR " + error.networkResponse.statusCode,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            if (error.getClass() == TimeoutError.class){
+                                Toast.makeText(EditCandidateActivity.this,
+                                        "Нет соединения с сервером",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditCandidateActivity.this,
+                                        error.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -304,7 +342,7 @@ public class EditCandidateActivity extends AppCompatActivity {
     private void editEmployee(int id) {
         short mode = (short) (is_employee ? 1 : 0);
         Integer idPost;
-        if(spr_selectedItemId == 0){
+        if (spr_selectedItemId == 0) {
             idPost = null;
         } else {
             idPost = new Integer(posts[spr_selectedItemId - 1].getId());
@@ -356,7 +394,15 @@ public class EditCandidateActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditCandidateActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditCandidateActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditCandidateActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }

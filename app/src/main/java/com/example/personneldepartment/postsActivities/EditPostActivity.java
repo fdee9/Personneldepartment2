@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -105,7 +106,15 @@ public class EditPostActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditPostActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.getClass() == TimeoutError.class){
+                            Toast.makeText(EditPostActivity.this,
+                                    "Нет соединения с сервером",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(EditPostActivity.this,
+                                    error.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
                         error.printStackTrace();
                     }
                 }
@@ -132,7 +141,27 @@ public class EditPostActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(EditPostActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                        if (error.networkResponse != null) {
+                            if((error.networkResponse.statusCode == 400)) {
+                                Toast.makeText(EditPostActivity.this,
+                                        "Есть ссылки на данную должность",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditPostActivity.this,
+                                        "ERROR " + error.networkResponse.statusCode,
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        } else {
+                            if (error.getClass() == TimeoutError.class){
+                                Toast.makeText(EditPostActivity.this,
+                                        "Нет соединения с сервером",
+                                        Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(EditPostActivity.this,
+                                        error.getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
                         error.printStackTrace();
                     }
                 }
